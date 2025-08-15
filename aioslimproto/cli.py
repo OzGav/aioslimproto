@@ -670,7 +670,7 @@ class SlimProtoCLI:
         player_id: str,
         start_index: int | str = 0,
         limit: int = 999,
-        *args # Added to gracefully handle non spec compliant devices
+        *args, # Added to gracefully handle non spec compliant devices
         **kwargs,
     ) -> PlayersResponse:
         """Handle players command."""
