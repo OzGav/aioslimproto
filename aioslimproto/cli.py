@@ -53,7 +53,7 @@ if TYPE_CHECKING:
     from .client import SlimClient
     from .server import SlimServer
 
-# ruff: noqa: ARG004,ARG002,FBT001,FBT002,PLR0912,RUF006
+# ruff: noqa: ARG002, FBT001, FBT002, RUF006
 
 
 ArgsType = list[int | str]
@@ -670,7 +670,7 @@ class SlimProtoCLI:
         player_id: str,
         start_index: int | str = 0,
         limit: int = 999,
-        *args, # Added to gracefully handle non spec compliant devices
+        *args,  # Added to gracefully handle non spec compliant devices
         **kwargs,
     ) -> PlayersResponse:
         """Handle players command."""

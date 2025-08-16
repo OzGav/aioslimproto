@@ -30,7 +30,7 @@ if TYPE_CHECKING:
     from .client import SlimClient
 
 FONTDIR = os.path.join(os.path.dirname(__file__), "font")  # noqa: PTH120, PTH118
-AVAILABLE_FONTS = [f[: -len(".ttf")] for f in os.listdir(FONTDIR) if f.endswith(".ttf")]
+AVAILABLE_FONTS = [f[: -len(".ttf")] for f in os.listdir(FONTDIR) if f.endswith(".ttf")]  # noqa: PTH208
 
 # ruff: noqa: FBT001,FBT002
 
