@@ -97,6 +97,7 @@ class SlimClient:
         self._connected: bool = False
         self._last_heartbeat = 0
         self._auto_play: bool = False
+        self._enqueue_pending: bool = False
         self._reader_task = create_task(self._socket_reader())
         self._heartbeat_task: asyncio.Task | None = None
         self._presets: list[Preset] = []
@@ -424,7 +425,9 @@ class SlimClient:
         self.extra_data["playlist_timestamp"] = int(time.time())
         self.signal_update()
         if enqueue:
+            self._enqueue_pending = True
             return
+        self._enqueue_pending = False
         # power on if we're not already powered
         if not self._powered:
             await self.power(powered=True)
@@ -806,9 +809,6 @@ class SlimClient:
         self.logger.debug("STMc received - connected.")
         # srtm-s command received. Guaranteed to be the first response to an strm-s.
         self._state = PlayerState.BUFFERING
-        self._current_media = self._next_media
-        self._next_media = None
-        self.extra_data["playlist_timestamp"] = int(time.time())
         self.signal_update()
 
     def _process_stat_stmd(self, data: bytes) -> None:
@@ -868,6 +868,10 @@ class SlimClient:
         """Process incoming stat STMs message: Playback of new track has started."""
         self.logger.debug("STMs received - playback of new track has started")
         self._state = PlayerState.PLAYING
+        if not self._enqueue_pending and self._next_media:
+            self._current_media = self._next_media
+            self._next_media = None
+            self.extra_data["playlist_timestamp"] = int(time.time())
         self.signal_update()
         await self._render_display("playback_start")
 
