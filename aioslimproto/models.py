@@ -138,6 +138,7 @@ class ButtonCode(IntEnum):
     VOLUME_DOWN = 131081
     POWER_RELEASE = 131082
 
+
 PCM_SAMPLE_SIZE = {
     # The protocol uses: sample_size_bytes = char_value - '0' + 1
     # '0'=1 byte (8-bit), '1'=2 bytes (16-bit)
@@ -148,7 +149,6 @@ PCM_SAMPLE_SIZE = {
     32: b"3",
     0: b"?",
 }
-
 
 PCM_SAMPLE_RATE = {
     # map with sample rates used in slimproto."""
