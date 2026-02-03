@@ -149,6 +149,7 @@ PCM_SAMPLE_SIZE = {
     0: b"?",
 }
 
+
 PCM_SAMPLE_RATE = {
     # map with sample rates used in slimproto."""
     # https://wiki.slimdevices.com/index.php/SlimProto_TCP_protocol.html#Command:_.22strm.22
